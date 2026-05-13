@@ -1,4 +1,5 @@
 import Groq from "groq-sdk";
+import Interview from "../models/interviewModel.js";
 
 export const generateQuestions = async (req, res) => {
 
@@ -33,10 +34,27 @@ Return only questions.
         model: "llama-3.1-8b-instant",
       });
 
-    res.json({
-      questions:
-        chatCompletion.choices[0].message.content,
+      const generatedQuestions = chatCompletion.choices[0].message.content;
+
+    const interview = await Interview.create({
+
+      user: req.user._id,
+
+      role,
+
+      topic,
+
+      difficulty,
+
+      questions: generatedQuestions,
     });
+
+    res.json({
+      questions:generatedQuestions,
+      interview,
+    });
+
+    
 
   } catch (error) {
 
