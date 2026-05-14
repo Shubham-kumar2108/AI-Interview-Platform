@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from "react";
 import axios from "axios";
+import toast from 'react-hot-toast';
+import { Oval, } from "react-loader-spinner";
 
 
 const InterviewGenerator = () => {
@@ -17,11 +19,17 @@ const InterviewGenerator = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const handleGenerate = async () => {
+    const handleGenerate = async (e) => {
+
+        e.preventDefault();
 
         try {
 
             setLoading(true);
+
+            const userInfo = JSON.parse(
+                localStorage.getItem("userInfo")
+            );
 
             const { data } = await axios.post("http://localhost:5000/api/ai/generate",
                 {
@@ -38,10 +46,17 @@ const InterviewGenerator = () => {
 
             setQuestions(data.questions);
 
-            setLoading(false);
+            toast.success(
+                "Interview generated successfully!"
+            );
 
         } catch (error) {
             console.log(error);
+
+            toast.error(
+                "Failed to generate interview"
+            );
+        } finally {
             setLoading(false);
         }
     };
@@ -92,10 +107,16 @@ const InterviewGenerator = () => {
                 </div>
                 <button
                     onClick={handleGenerate}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-300"
+                    type="submit"
+                    disabled={loading}
+                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 flex items-center justify-center"
                 >
                     {
-                        loading ? "Generating..." : "Generate Questions"
+                        loading ? (
+                            <Oval height={25} width={25} color="#999" strokeWidth={4}/>
+                        ) : (
+                            "Generate Questions"
+                        )
                     }
                 </button>
                 {

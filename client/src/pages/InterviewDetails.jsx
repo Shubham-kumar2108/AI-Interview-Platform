@@ -2,6 +2,7 @@ import react, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import toast from "react-hot-toast";
 
 const InterviewDetails = () => {
 
@@ -38,7 +39,7 @@ const InterviewDetails = () => {
         navigator.clipboard.writeText(
             interview.questions
         );
-        alert("Questions copied!");
+        toast.success("Questions copied!");
     };
 
     const deleteInterview = async () => {
@@ -56,7 +57,7 @@ const InterviewDetails = () => {
                     },
                 }
             );
-            alert("Interview deleted");
+            toast.success("Interview deleted");
 
             navigate("/dashboard");
         } catch (error) {

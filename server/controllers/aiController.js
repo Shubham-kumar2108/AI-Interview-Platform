@@ -111,7 +111,7 @@ export const getInterviewById = async (req, res) => {
   }
 };
 
-export const deleteInterview = async () => {
+export const deleteInterview = async (req,res) => {
   try {
     const interview = await Interview.findById(req.params.id);
 
