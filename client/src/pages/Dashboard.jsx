@@ -138,6 +138,12 @@ const Dashboard = () => {
 
                         </div>
 
+                        <Link to={`/interview/${item._id}`}>
+                            <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
+                              View Full Interview
+                            </button>
+                        </Link>
+
                       </div>
                     );
                   })

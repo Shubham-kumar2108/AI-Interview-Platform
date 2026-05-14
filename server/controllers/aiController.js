@@ -34,7 +34,8 @@ Return only questions.
         model: "llama-3.1-8b-instant",
       });
 
-      const generatedQuestions = chatCompletion?.choices?.[0]?.message?.content || "";
+    const generatedQuestions = chatCompletion?.choices?.[0]?.message?.content || "";
+
 
     const interview = await Interview.create({
 
@@ -50,11 +51,11 @@ Return only questions.
     });
 
     res.json({
-      questions:generatedQuestions,
+      questions: generatedQuestions,
       interview,
     });
 
-    
+
 
   } catch (error) {
 
@@ -67,15 +68,77 @@ Return only questions.
 };
 
 
-export const getMyInterviews = async (req,res) => {
+export const getMyInterviews = async (req, res) => {
   try {
     const interviews = await Interview.find({
       user: req.user._id,
-    }).sort({creaatedAt: -1});
+    }).sort({ creaatedAt: -1 });
     res.json(interviews);
   } catch {
     res.status(500).json({
       message: error.message,
+    });
+  }
+};
+
+
+export const getInterviewById = async (req, res) => {
+  try {
+    const interview = await Interview.findById(
+      req.params.id
+    );
+    if (!interview) {
+      return res.status(404).json({
+        message: "Interview not found",
+      });
+    }
+    if (
+      interview.user.toString() !==
+      req.user.id
+    ) {
+
+      return res.status(401).json({
+        message: "Not authorized",
+      });
+    }
+    res.json(interview);
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+export const deleteInterview = async () => {
+  try {
+    const interview = await Interview.findById(req.params.id);
+
+    if (!interview) {
+      return res.status(404).json({
+        message: "Interview not found",
+      });
+    }
+    if (
+      interview.user.toString() !==
+      req.user.id
+    ) {
+
+      return res.status(401).json({
+        message: "Not authorized",
+      });
+    }
+    await interview.deleteOne();
+
+    res.json({
+      message: "Interview deleted",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      error: error.message,
     });
   }
 };
