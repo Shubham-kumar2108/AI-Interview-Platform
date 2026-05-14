@@ -34,7 +34,7 @@ Return only questions.
         model: "llama-3.1-8b-instant",
       });
 
-      const generatedQuestions = chatCompletion.choices[0].message.content;
+      const generatedQuestions = chatCompletion?.choices?.[0]?.message?.content || "";
 
     const interview = await Interview.create({
 
@@ -61,7 +61,21 @@ Return only questions.
     console.log(error);
 
     res.status(500).json({
-      message: "AI generation failed",
+      error: error.message,
+    });
+  }
+};
+
+
+export const getMyInterviews = async (req,res) => {
+  try {
+    const interviews = await Interview.find({
+      user: req.user._id,
+    }).sort({creaatedAt: -1});
+    res.json(interviews);
+  } catch {
+    res.status(500).json({
+      message: error.message,
     });
   }
 };

@@ -19,6 +19,10 @@ const interviewSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        questions: {
+            type: String,
+            required: true,
+        },
     },
     {
         timestamps: true,
