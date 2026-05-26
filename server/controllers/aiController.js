@@ -1,5 +1,6 @@
 import Groq from "groq-sdk";
 import Interview from "../models/interviewModel.js";
+import pdf from "pdf-parse";
 
 export const generateQuestions = async (req, res) => {
 
@@ -133,6 +134,63 @@ export const deleteInterview = async (req,res) => {
 
     res.json({
       message: "Interview deleted",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+export const generateResumeQuestions = async (req,res) => {
+  try{
+
+    const groq = new Groq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
+
+    if(!req.file){
+      return res.status(400).json({
+        message: "Resume file required",
+      });
+    }
+    const pdfData = await pdf(
+      req.file.buffer
+    );
+
+    const resumeText = pdfData.text;
+
+    const prompt = `Analyse this resume and generate 10 personalized interview questions. 
+    Resume: ${resumeText}
+    
+    Return only questions.
+    `;
+
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      model: "llama-3.3-70b-versatile",
+    });
+
+    const generatedQuestions = chatCompletion?.choices?.[0]?.message?.content || "";
+
+    const interview = await Interview.create({
+      user: req.user.id,
+      role: "Resume-Based",
+      topic: "Personalized",
+      difficulty: "Mixed",
+      questions: generatedQuestions,
+    });
+    
+    res.json({
+      questions: generatedQuestions,
+      interview,
     });
   } catch (error) {
     console.log(error);

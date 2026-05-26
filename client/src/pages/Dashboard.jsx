@@ -60,6 +60,11 @@ const Dashboard = () => {
 
             </button>
           </Link>
+          <Link to="/resume-interview">
+            <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold">
+              Resume Interview
+            </button>
+          </Link>
         </div>
         <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-800">
 
@@ -139,10 +144,12 @@ const Dashboard = () => {
                         </div>
 
                         <Link to={`/interview/${item._id}`}>
-                            <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
-                              View Full Interview
-                            </button>
+                          <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
+                            View Full Interview
+                          </button>
                         </Link>
+
+
 
                       </div>
                     );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
     const navigate = useNavigate();
@@ -25,15 +26,14 @@ function Login() {
                 "http://localhost:5000/api/auth/login",
                 formData
             );
-            console.log(formData);
+            
             localStorage.setItem("userInfo", JSON.stringify(data));
-
+            toast.success("Login successful!");
             navigate("/dashboard");
+            
 
         } catch (error) {
-            alert(
-                error.response.data.message || "Login failed"
-            );
+            toast.error("Invalid email or password");
         }
     };
 

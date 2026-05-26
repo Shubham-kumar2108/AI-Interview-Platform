@@ -1,11 +1,15 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     const navigate = useNavigate();
 
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
-
+        toast.success(
+            "Logged out successfully"
+        );
+        
         navigate("/");
 
     };
@@ -18,8 +22,8 @@ const Navbar = () => {
             </h1>
 
             <button
-              onClick={logoutHandler}
-              className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-4 py-2 rounded-lg"
+                onClick={logoutHandler}
+                className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-4 py-2 rounded-lg"
             >
                 Logout
             </button>
