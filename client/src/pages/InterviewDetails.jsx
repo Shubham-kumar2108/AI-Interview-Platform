@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import toast from "react-hot-toast";
+const API = import.meta.env.VITE_API_URL;
 
 const InterviewDetails = () => {
 
@@ -20,7 +21,7 @@ const InterviewDetails = () => {
         const fetchInterview = async () => {
             try {
                 const { data } = await axios.get(
-                    `http://localhost:5000/api/ai/interview/${id}`,
+                    `${API}/api/ai/interview/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${userInfo.token}`,
@@ -50,7 +51,7 @@ const InterviewDetails = () => {
 
         try {
             await axios.delete(
-                `http://localhost:5000/api/ai/interview/${id}`,
+                `${API}/api/ai/interview/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${userInfo.token}`,

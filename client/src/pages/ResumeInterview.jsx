@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from '../components/Navbar';
 import toast from "react-hot-toast";
 import { Oval, } from "react-loader-spinner";
+const API = import.meta.env.VITE_API_URL;
 
 const ResumeInterview = () => {
 
@@ -30,7 +31,7 @@ const ResumeInterview = () => {
 
             formData.append("resume", resume);
 
-            const { data } = await axios.post("http://localhost:5000/api/ai/resume-generate", formData, {
+            const { data } = await axios.post(`${API}/api/ai/resume-generate`, formData, {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
                     "Content-Type": "multipart/form-data",

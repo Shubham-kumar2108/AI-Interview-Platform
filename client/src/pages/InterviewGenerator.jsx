@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { Oval, } from "react-loader-spinner";
+const API = import.meta.env.VITE_API_URL;
 
 
 const InterviewGenerator = () => {
@@ -31,7 +32,7 @@ const InterviewGenerator = () => {
                 localStorage.getItem("userInfo")
             );
 
-            const { data } = await axios.post("http://localhost:5000/api/ai/generate",
+            const { data } = await axios.post(`${API}/api/ai/generate`,
                 {
                     role,
                     difficulty,

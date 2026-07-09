@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar';
 import { Link } from "react-router-dom";
 import axios from "axios";
+const API = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
   const [interviews, setInterviews] = useState([]);
@@ -14,7 +15,7 @@ const Dashboard = () => {
     const fetchInterviews = async () => {
 
       try {
-        const { data } = await axios.get("http://localhost:5000/api/ai/my-interviews",
+        const { data } = await axios.get(`${API}/api/ai/my-interviews`,
           {
             headers: {
               Authorization: `Bearer ${userInfo.token}`,
