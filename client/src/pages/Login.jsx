@@ -39,41 +39,59 @@ function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
-            <div className="bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-md">
-                <h1 className="text-3xl font-bold text-white text-center mb-6">
-                    AI Interview Platform
-                </h1>
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center px-4 sm:px-6 py-8">
+            <div className="w-full max-w-md">
+                {/* Decorative gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl -z-10"></div>
+                
+                <div className="bg-slate-800/50 backdrop-blur-xl p-8 sm:p-10 rounded-3xl shadow-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                    {/* Logo/Header */}
+                    <div className="mb-8">
+                        <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-center">
+                            AI Interview
+                        </h1>
+                        <p className="text-center text-purple-300 text-sm mt-1">Platform</p>
+                    </div>
 
-                <p className="text-gray-400 text-center mb-8">
-                    Login to continue
-                </p>
+                    <p className="text-slate-300 text-center mb-8 text-sm sm:text-base">
+                        Login to your account and prepare for success
+                    </p>
 
-                <form onSubmit={handleSubmit} className="space-y-5" >
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        className="w-full p-3 rounded-lg bg-gray-700 text-white outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        className="w-full p-3 rounded-lg bg-gray-700 text-white outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email Address"
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 sm:py-4 rounded-xl bg-slate-700/50 border border-purple-500/30 text-white placeholder-slate-400 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 sm:py-4 rounded-xl bg-slate-700/50 border border-purple-500/30 text-white placeholder-slate-400 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                            />
+                        </div>
 
-                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 transition duration-300 text-white p-3 rounded-lg font-semibold">
-                        Login
-                    </button>
-                </form>
+                        <button 
+                            type="submit" 
+                            className="w-full mt-6 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+                        >
+                            Login
+                        </button>
+                    </form>
 
-                <p className="text-gray-400 text-center mt-6">
-                    No account?
-                    <Link to="/register" className="text-blue-500 ml-1 hover:underline">Register</Link>
-                </p>
+                    <p className="text-slate-400 text-center mt-8 text-sm sm:text-base">
+                        No account yet?{" "}
+                        <Link to="/register" className="text-purple-400 font-semibold hover:text-purple-300 transition-colors">
+                            Create one
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     );

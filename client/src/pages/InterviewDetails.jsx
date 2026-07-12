@@ -74,40 +74,54 @@ const InterviewDetails = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-950">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
             <Navbar />
-            <div className="max-w-5xl mx-auto p-8">
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg">
-                    <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-4xl font-bold text-blue-400">
-                            {interview.role}
-                        </h1>
-                        <span className="text-gray-400">
-                            {
-                                new Date(interview.createdAt).toLocaleDateString()
-                            }
+            <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-4xl mx-auto">
+                <div className="bg-gradient-to-br from-slate-800/50 to-purple-800/50 backdrop-blur-xl border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                    {/* Header */}
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                            <h1 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                                {interview.role}
+                            </h1>
+                            <p className="text-slate-400 text-sm mt-1">Interview Questions</p>
+                        </div>
+                        <span className="text-slate-400 text-sm bg-slate-700/50 px-4 py-2 rounded-full">
+                            {new Date(interview.createdAt).toLocaleDateString()}
                         </span>
                     </div>
-                    <div className="flex gap-4 mb-8 flex-wrap">
-                            <span className="bg-blue-600 text-white px-4 py-2 rounded-full">
-                                {interview.topic}
-                            </span>
-                            <span className="bg-purple-600 text-white px-4 py-2 rounded-full">
-                                {interview.difficulty}
-                            </span>
+
+                    {/* Tags */}
+                    <div className="flex gap-3 mb-8 flex-wrap">
+                        <span className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-4 py-2 rounded-full font-medium text-sm">
+                            {interview.topic}
+                        </span>
+                        <span className="bg-gradient-to-r from-purple-600 to-purple-500 text-white px-4 py-2 rounded-full font-medium text-sm">
+                            {interview.difficulty}
+                        </span>
                     </div>
-                    <div className="bg-gray-950 border border-gray-800 rounded-xl p-6 mb-8">
-                            <pre className="text-gray-300 whitespace-pre-wrap leading-8">
-                                {interview.questions}
-                            </pre>
+
+                    {/* Questions Display */}
+                    <div className="bg-slate-900/50 border border-slate-600/50 rounded-2xl p-6 mb-8 max-h-96 overflow-y-auto">
+                        <pre className="text-slate-200 whitespace-pre-wrap leading-8 font-sans text-sm sm:text-base">
+                            {interview.questions}
+                        </pre>
                     </div>
-                    <div className="flex gap-4">
-                            <button onClick={copyQuestions} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold">
-                                Copy Questions
-                            </button>
-                            <button onClick={deleteInterview} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold">
-                                Delete Interview
-                            </button>
+
+                    {/* Action Buttons */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button 
+                            onClick={copyQuestions} 
+                            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+                        >
+                            📋 Copy Questions
+                        </button>
+                        <button 
+                            onClick={deleteInterview} 
+                            className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+                        >
+                            🗑️ Delete Interview
+                        </button>
                     </div>
                 </div>
             </div>
